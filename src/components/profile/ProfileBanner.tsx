@@ -42,48 +42,48 @@ export function ProfileBanner({
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="overflow-hidden rounded-2xl bg-charcoal text-cream shadow-[0_26px_60px_rgba(20,14,10,0.28)]"
+      className="overflow-hidden rounded-[1.25rem] bg-charcoal text-cream shadow-[0_26px_60px_rgba(20,14,10,0.28)]"
     >
       {/* banner */}
-      <div className="relative h-24 w-full sm:h-40">
+      <div className="relative h-36 w-full sm:h-48">
         <img
           src={bannerImage}
           alt="Charcoal grill embers"
           width={1920}
           height={560}
           className="h-full w-full object-cover" loading="lazy" decoding="async" />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/45 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/30 to-transparent" />
         {/* top-left notch: Menu */}
-        <div className="absolute left-0 top-0 z-10 rounded-br-2xl bg-cream pb-1.5 pr-1.5">
+        <div className="absolute left-0 top-0 z-10 rounded-br-[1.25rem] bg-cream pb-2 pr-2">
           <Link
             to="/"
-            className="flex h-9 items-center gap-1 rounded-xl border-2 border-charcoal/10 bg-white/70 pl-1.5 pr-3 font-body text-xs font-bold text-charcoal/75 hover:border-flame hover:text-flame"
+            className="flex h-10 items-center gap-1 rounded-full bg-flame pl-2 pr-4 font-body text-xs font-bold text-cream shadow-[var(--shadow-pill)] transition-transform active:scale-95"
           >
             <ChevronLeft className="h-4 w-4" aria-hidden="true" /> Menu
           </Link>
-          <span aria-hidden="true" className="notch-tl absolute left-full top-0 h-4 w-4" />
-          <span aria-hidden="true" className="notch-tl absolute left-0 top-full h-4 w-4" />
+          <span aria-hidden="true" className="notch-tl absolute left-full top-0 h-5 w-5 [--notch-r:1.25rem]" />
+          <span aria-hidden="true" className="notch-tl absolute left-0 top-full h-5 w-5 [--notch-r:1.25rem]" />
         </div>
         {/* top-right notch: Sign out */}
         {onSignOut && (
-          <div className="absolute right-0 top-0 z-10 rounded-bl-2xl bg-cream pb-1.5 pl-1.5">
+          <div className="absolute right-0 top-0 z-10 rounded-bl-[1.25rem] bg-cream pb-2 pl-2">
             <button
               type="button"
               onClick={onSignOut}
               aria-label="Sign out"
-              className="grid h-9 w-9 place-items-center rounded-xl border-2 border-charcoal/10 bg-white/70 text-charcoal/75 hover:border-flame hover:text-flame"
+              className="grid h-10 w-10 place-items-center rounded-full bg-charcoal text-cream transition-transform hover:bg-flame active:scale-95"
             >
               <LogOut className="h-4 w-4" aria-hidden="true" />
             </button>
-            <span aria-hidden="true" className="notch-tr absolute right-full top-0 h-4 w-4" />
-            <span aria-hidden="true" className="notch-tr absolute right-0 top-full h-4 w-4" />
+            <span aria-hidden="true" className="notch-tr absolute right-full top-0 h-5 w-5 [--notch-r:1.25rem]" />
+            <span aria-hidden="true" className="notch-tr absolute right-0 top-full h-5 w-5 [--notch-r:1.25rem]" />
           </div>
         )}
       </div>
 
       {/* identity row */}
-      <div className="relative -mt-9 px-4 pb-3 sm:-mt-12 sm:px-8 sm:pb-8">
-        <div className="flex flex-col items-center text-center sm:flex-row sm:items-end sm:gap-5 sm:text-left">
+      <div className="relative -mt-10 px-4 pb-4 sm:-mt-12 sm:px-8 sm:pb-8">
+        <div className="flex items-end gap-3 text-left sm:gap-5">
           <div className="relative shrink-0">
             <span className="block rounded-2xl bg-charcoal p-1.5 shadow-[0_18px_40px_rgba(20,14,10,0.45)]">
               <img
@@ -120,7 +120,7 @@ export function ProfileBanner({
               </>
             )}
           </div>
-          <div className="mt-2 w-full min-w-0 sm:mt-0 sm:flex-1 sm:pb-1">
+          <div className="min-w-0 flex-1 pb-0.5">
             <h1 className="truncate font-display text-lg font-extrabold uppercase leading-tight sm:text-2xl">
               {name}
             </h1>
