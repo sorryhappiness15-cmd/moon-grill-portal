@@ -57,7 +57,7 @@ export function MascotFooter() {
         {/* soft glow behind the copy */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/3 left-1/2 -z-10 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-ember/40 blur-[90px]"
+          className="pointer-events-none absolute top-1/3 left-1/2 -z-10 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 hidden"
         />
 
         {/* left mascot */}
@@ -128,7 +128,7 @@ export function MascotFooter() {
         </div>
 
         {/* bottom bar */}
-        <div className="relative z-20 mt-6 rounded-t-3xl border-t border-cream/30 bg-charcoal/35 px-5 backdrop-blur-md sm:mt-0 sm:rounded-none sm:bg-transparent sm:px-0 sm:backdrop-blur-none">
+        <div className="relative z-20 mt-6 rounded-t-3xl border-t border-cream/30 bg-flame px-5 sm:mt-0 sm:rounded-none sm:px-0">
           <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-6 py-7 text-cream drop-shadow-[0_1px_2px_rgba(40,8,8,0.55)] sm:drop-shadow-none sm:grid-cols-3">
 
             <div className="space-y-1.5">
