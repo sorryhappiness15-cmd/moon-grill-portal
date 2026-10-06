@@ -284,7 +284,11 @@ function ProfilePage() {
                   type="button"
                   data-sfx="pop"
                   aria-current={active ? "page" : undefined}
-                  onClick={() => setTab(t.id)}
+                  onClick={() => {
+                    if (tab === t.id) return;
+                    setTab(t.id);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
                   className={`relative flex min-h-11 flex-col items-center justify-center gap-0.5 rounded-xl px-1 font-display text-[10px] font-extrabold uppercase tracking-[0.1em] transition-colors sm:min-h-10 sm:flex-row sm:gap-2 sm:text-[11px] ${
                     active ? "text-cream" : "text-charcoal/60 hover:text-flame"
                   }`}
@@ -318,55 +322,63 @@ function ProfilePage() {
         <AnimatePresence mode="wait">
           <motion.div
             key={tab}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.22 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             className="mt-4"
           >
             {tab === "home" && (
               <section className="space-y-5">
                 {/* 1 — active order first */}
                 {current ? (
-                  <article className="rounded-[1.75rem] border-2 border-flame/25 bg-white/80 p-4 shadow-[0_18px_40px_-28px_rgba(210,35,31,0.8)] sm:p-5">
-                    <div className="flex items-center gap-3">
+                  <article className="overflow-hidden rounded-[1.75rem] border-2 border-charcoal/10 bg-white shadow-[0_18px_40px_-28px_rgba(20,14,10,0.6)]">
+                    <div className="flex items-center justify-between gap-3 bg-charcoal px-4 py-2.5 text-cream">
+                      <span className="flex items-center gap-2 font-body text-xs font-bold">
+                        <span className="relative flex h-2.5 w-2.5">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-70 motion-reduce:animate-none" />
+                          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gold" />
+                        </span>
+                        {stageLabel(tracking?.status ?? current.status)}
+                      </span>
+                      <span className="font-body text-xs text-cream/70">Order #{current.order_code}</span>
+                    </div>
+                    <div className="flex items-center gap-3 p-4">
                       {current.dish_image && (
                         <img
                           src={current.dish_image}
                           alt={current.dish_name}
-                          className="h-14 w-14 shrink-0 rounded-2xl object-cover"
+                          className="h-16 w-16 shrink-0 rounded-2xl object-cover"
                           loading="lazy"
                           decoding="async"
                         />
                       )}
                       <div className="min-w-0 flex-1">
-                        <p className="flex items-center gap-1.5 font-display text-[10px] font-extrabold uppercase tracking-[0.18em] text-flame">
-                          <span className="h-2 w-2 animate-pulse rounded-full bg-gold" />
-                          {stageLabel(tracking?.status ?? current.status)}
-                        </p>
-                        <p className="truncate font-display text-sm font-extrabold uppercase text-charcoal">
+                        <p className="truncate font-display text-base font-bold leading-tight text-charcoal">
                           {current.dish_name}
                         </p>
-                        <p className="truncate font-body text-[11px] text-charcoal/55">
-                          {current.order_code} · {money(current.total)}
+                        <p className="mt-0.5 font-body text-[13px] text-charcoal/60">
+                          {current.qty} item{current.qty === 1 ? "" : "s"} · <span className="font-bold text-charcoal">{money(current.total)}</span>
                         </p>
                       </div>
-                      <div className="shrink-0 text-right">
-                        <p className="font-display text-lg font-black text-charcoal">
-                          {tracking?.delivered ? "—" : `${tracking?.etaMinutes ?? current.eta_minutes}`}
+                      <div className="shrink-0 rounded-2xl bg-gold/20 px-3 py-2 text-center">
+                        <p className="font-display text-xl font-black leading-none text-charcoal">
+                          {tracking?.delivered ? "✓" : `${tracking?.etaMinutes ?? current.eta_minutes}`}
                         </p>
-                        <p className="font-body text-[10px] uppercase tracking-widest text-charcoal/50">
-                          min away
+                        <p className="mt-1 font-body text-[10px] font-bold text-charcoal/60">
+                          {tracking?.delivered ? "Done" : "min"}
                         </p>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => setTab("live")}
-                      className="mt-4 w-full rounded-full bg-flame py-3 font-display text-[11px] font-extrabold uppercase tracking-[0.18em] text-cream transition-colors hover:bg-charcoal"
-                    >
-                      Track order
-                    </button>
+                    <div className="px-4 pb-4">
+                      <button
+                        type="button"
+                        onClick={() => setTab("live")}
+                        className="flex w-full items-center justify-center gap-2 rounded-full bg-flame py-3 font-body text-sm font-bold text-cream transition-colors hover:bg-charcoal"
+                      >
+                        <Bike className="h-4 w-4" aria-hidden="true" /> Track live
+                      </button>
+                    </div>
                   </article>
                 ) : (
                   <EmptyState
@@ -565,18 +577,25 @@ function ProfilePage() {
                         <button
                           type="button"
                           onClick={() => setTab("live")}
-                          className="flex w-full items-center gap-3 rounded-2xl border-2 border-flame/30 bg-flame/5 p-3 text-left"
+                          className="flex w-full items-center gap-3 rounded-2xl border-2 border-gold/60 bg-white p-3 text-left shadow-[0_14px_30px_-24px_rgba(20,14,10,0.6)] transition-colors hover:border-flame"
                         >
-                          <span className="h-2.5 w-2.5 shrink-0 animate-pulse rounded-full bg-gold" />
+                          {current.dish_image ? (
+                            <img src={current.dish_image} alt="" className="h-12 w-12 shrink-0 rounded-xl object-cover" loading="lazy" decoding="async" />
+                          ) : (
+                            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gold/20"><Bike className="h-5 w-5 text-charcoal" aria-hidden="true" /></span>
+                          )}
                           <span className="min-w-0 flex-1">
-                            <span className="block truncate font-display text-xs font-extrabold uppercase text-charcoal">
-                              {current.dish_name} — {stageLabel(tracking?.status ?? current.status)}
+                            <span className="flex items-center gap-1.5 font-body text-[11px] font-bold text-charcoal/70">
+                              <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-gold" />
+                              {stageLabel(tracking?.status ?? current.status)} · #{current.order_code}
                             </span>
-                            <span className="block font-body text-[11px] text-charcoal/55">
-                              Tap to track live
+                            <span className="mt-0.5 block truncate font-display text-sm font-bold text-charcoal">
+                              {current.dish_name}
                             </span>
                           </span>
-                          <ChevronRight className="h-4 w-4 shrink-0 text-flame" aria-hidden="true" />
+                          <span className="flex shrink-0 items-center gap-1 rounded-full bg-flame px-3 py-1.5 font-body text-xs font-bold text-cream">
+                            Track <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
+                          </span>
                         </button>
                       </li>
                     )}
@@ -775,11 +794,11 @@ function OrderRow({ order, expandable }: { order: DbOrder; expandable?: boolean 
           />
         )}
         <div className="min-w-0 flex-1">
-          <p className="truncate font-display text-xs font-extrabold uppercase text-charcoal">
+          <p className="truncate font-display text-sm font-bold text-charcoal">
             {order.dish_name}
           </p>
-          <p className="truncate font-body text-[11px] text-charcoal/55">
-            {stageLabel(order.status)} · {new Date(order.created_at).toLocaleDateString("en-GB")}
+          <p className="truncate font-body text-xs text-charcoal/55">
+            #{order.order_code} · {stageLabel(order.status)} · {new Date(order.created_at).toLocaleDateString("en-GB")}
           </p>
         </div>
         <span className="shrink-0 font-display text-sm font-extrabold text-flame">{money(order.total)}</span>
