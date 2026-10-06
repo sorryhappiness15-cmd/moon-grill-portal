@@ -332,7 +332,7 @@ function ProfilePage() {
               <section className="space-y-5">
                 {/* 1 — active order first */}
                 {current ? (
-                  <article className="overflow-hidden rounded-[1.75rem] border-2 border-charcoal/10 bg-white shadow-[0_18px_40px_-28px_rgba(20,14,10,0.6)]">
+                  <article className="overflow-hidden rounded-2xl border-2 border-charcoal/10 bg-white shadow-[0_18px_40px_-28px_rgba(20,14,10,0.6)]">
                     <div className="flex items-center justify-between gap-3 bg-charcoal px-4 py-2.5 text-cream">
                       <span className="flex items-center gap-2 font-body text-xs font-bold">
                         <span className="relative flex h-2.5 w-2.5">
@@ -413,7 +413,7 @@ function ProfilePage() {
                 </div>
 
                 {/* 3 — recent orders */}
-                <section className="rounded-[1.75rem] border-2 border-charcoal/10 bg-white/60 p-4 sm:p-5">
+                <section className="rounded-2xl border-2 border-charcoal/10 bg-white/60 p-4 sm:p-5">
                   <div className="flex items-center justify-between gap-3">
                     <h2 className="font-display text-sm font-extrabold uppercase tracking-[0.18em] text-charcoal">
                       Recent orders
@@ -577,7 +577,7 @@ function ProfilePage() {
             {tab === "account" && (
               <section className="space-y-4">
                 {/* account details */}
-                <section className="overflow-hidden rounded-[1.75rem] border-2 border-charcoal/10 bg-white/70">
+                <section className="overflow-hidden rounded-2xl border-2 border-charcoal/10 bg-white/70">
                   <h2 className="flex items-center gap-2 px-4 pb-1 pt-4 font-display text-sm font-extrabold uppercase tracking-[0.18em] text-charcoal sm:px-5">
                     <UserIcon className="h-4 w-4" aria-hidden="true" /> Personal details
                   </h2>
@@ -595,7 +595,7 @@ function ProfilePage() {
                 </section>
 
                 {/* addresses */}
-                <section className="rounded-[1.75rem] border-2 border-charcoal/10 bg-white/60 p-4 sm:p-5">
+                <section className="rounded-2xl border-2 border-charcoal/10 bg-white/60 p-4 sm:p-5">
                   <h2 className="flex items-center gap-2 font-display text-sm font-extrabold uppercase tracking-[0.18em] text-charcoal">
                     <MapPin className="h-4 w-4" aria-hidden="true" /> Delivery addresses
                   </h2>
@@ -647,7 +647,7 @@ function ProfilePage() {
                 </section>
 
                 {/* payments */}
-                <section className="rounded-[1.75rem] border-2 border-charcoal/10 bg-white/60 p-4 sm:p-5">
+                <section className="rounded-2xl border-2 border-charcoal/10 bg-white/60 p-4 sm:p-5">
                   <h2 className="flex items-center gap-2 font-display text-sm font-extrabold uppercase tracking-[0.18em] text-charcoal">
                     <Wallet className="h-4 w-4" aria-hidden="true" /> Payment methods
                   </h2>
@@ -668,7 +668,7 @@ function ProfilePage() {
                 </section>
 
                 {/* notifications */}
-                <section className="rounded-[1.75rem] border-2 border-charcoal/10 bg-white/60 p-4 sm:p-5">
+                <section className="rounded-2xl border-2 border-charcoal/10 bg-white/60 p-4 sm:p-5">
                   <h2 className="flex items-center gap-2 font-display text-sm font-extrabold uppercase tracking-[0.18em] text-charcoal">
                     <Bell className="h-4 w-4" aria-hidden="true" /> Notifications
                   </h2>
@@ -792,7 +792,7 @@ function EmptyState({
   to: "/" | "/cart";
 }) {
   return (
-    <div className="rounded-[1.75rem] border-2 border-dashed border-charcoal/15 bg-white/50 px-5 py-7 text-center">
+    <div className="rounded-2xl border-2 border-dashed border-charcoal/15 bg-white/50 px-5 py-7 text-center">
       <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-flame/10 text-flame">
         <UtensilsCrossed className="h-6 w-6" aria-hidden="true" />
       </span>
@@ -902,7 +902,7 @@ function SavedGrid({
   const dishes = slugs.map(dishBySlug).filter(Boolean);
 
   return (
-    <section className="rounded-[1.75rem] border-2 border-charcoal/10 bg-white/60 p-4 sm:p-5">
+    <section className="rounded-2xl border-2 border-charcoal/10 bg-white/60 p-4 sm:p-5">
       <h2 className="flex items-center gap-2 font-display text-sm font-extrabold uppercase tracking-[0.18em] text-charcoal">
         {icon}
         {title}

@@ -320,7 +320,7 @@ export function TrackMap({
           full
             ? "caddy-map-shell fixed inset-0 z-[1000] bg-ink p-2 sm:p-4"
             : store
-              ? "caddy-map-shell relative overflow-hidden rounded-[1.5rem]"
+              ? "caddy-map-shell relative overflow-hidden rounded-xl"
               : "caddy-map-shell relative overflow-hidden rounded-2xl border border-lux/20"
         }
       >
