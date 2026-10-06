@@ -111,9 +111,9 @@ export function ProfileBanner({
 
         <dl className="mt-4 grid grid-cols-3 divide-x divide-cream/10 overflow-hidden rounded-2xl border border-cream/10 bg-cream/[0.07] text-center sm:mt-6">
           {stats.map((stat) => (
-            <div key={stat.label} className="min-w-0 px-2 py-2.5 sm:py-3">
-              <dd className="truncate font-display text-base font-extrabold leading-tight sm:text-lg">{stat.value}</dd>
+            <div key={stat.label} className="flex min-w-0 flex-col-reverse px-2 py-2.5 sm:py-3">
               <dt className="mt-0.5 font-body text-[10px] uppercase tracking-widest text-cream/55">{stat.label}</dt>
+              <dd className="truncate font-display text-base font-extrabold leading-tight sm:text-lg">{stat.value}</dd>
             </div>
           ))}
         </dl>
