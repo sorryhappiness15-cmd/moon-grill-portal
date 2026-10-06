@@ -249,25 +249,8 @@ function ProfilePage() {
   const savedCount = wishlist.slugs.length + likes.slugs.length;
 
   return (
-    <main className="min-h-screen bg-cream px-4 pb-14 pt-5 sm:px-8 sm:py-8">
+    <main className="min-h-screen bg-cream px-4 pb-14 pt-4 sm:px-8 sm:py-8">
       <div className="mx-auto max-w-[1100px]">
-        <div className="flex items-center justify-between gap-3">
-          <Link
-            to="/"
-            className="flex h-10 items-center gap-1.5 rounded-full border-2 border-charcoal/12 bg-white/60 pl-2 pr-4 font-display text-[11px] font-extrabold uppercase tracking-[0.16em] text-charcoal/70 hover:border-flame hover:text-flame"
-          >
-            <ChevronLeft className="h-4 w-4" aria-hidden="true" /> Menu
-          </Link>
-          <button
-            type="button"
-            onClick={() => void resetLocal()}
-            aria-label="Sign out"
-            className="flex h-10 items-center gap-1.5 rounded-full border-2 border-charcoal/12 bg-white/60 px-3 font-display text-[11px] font-extrabold uppercase tracking-[0.16em] text-charcoal/70 hover:border-flame hover:text-flame sm:px-4"
-          >
-            <LogOut className="h-4 w-4" aria-hidden="true" /> <span className="hidden sm:inline">Sign out</span>
-          </button>
-        </div>
-
         {/* compact header */}
         <ProfileBanner
           name={displayName}
@@ -279,6 +262,7 @@ function ProfilePage() {
             { label: "Spent", value: money(spent) },
             { label: "Saved", value: String(savedCount) },
           ]}
+          onSignOut={() => void resetLocal()}
           onPickAvatar={(file) => {
             setAvatarPreview(URL.createObjectURL(file));
             toast.success("Profile photo updated");
@@ -357,7 +341,7 @@ function ProfilePage() {
                       )}
                       <div className="min-w-0 flex-1">
                         <p className="flex items-center gap-1.5 font-display text-[10px] font-extrabold uppercase tracking-[0.18em] text-flame">
-                          <span className="h-2 w-2 animate-pulse rounded-full bg-flame" />
+                          <span className="h-2 w-2 animate-pulse rounded-full bg-gold" />
                           {stageLabel(tracking?.status ?? current.status)}
                         </p>
                         <p className="truncate font-display text-sm font-extrabold uppercase text-charcoal">
@@ -583,7 +567,7 @@ function ProfilePage() {
                           onClick={() => setTab("live")}
                           className="flex w-full items-center gap-3 rounded-2xl border-2 border-flame/30 bg-flame/5 p-3 text-left"
                         >
-                          <span className="h-2.5 w-2.5 shrink-0 animate-pulse rounded-full bg-flame" />
+                          <span className="h-2.5 w-2.5 shrink-0 animate-pulse rounded-full bg-gold" />
                           <span className="min-w-0 flex-1">
                             <span className="block truncate font-display text-xs font-extrabold uppercase text-charcoal">
                               {current.dish_name} — {stageLabel(tracking?.status ?? current.status)}
