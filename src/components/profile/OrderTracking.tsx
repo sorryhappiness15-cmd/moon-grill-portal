@@ -44,7 +44,7 @@ export function OrderTracking({
   return (
     <div className="space-y-3">
       {/* map */}
-      <div className="overflow-hidden rounded-[1.75rem] border-2 border-flame/30 bg-cream-deep p-1.5">
+      <div className="overflow-hidden rounded-2xl border-2 border-flame/30 bg-cream-deep p-1.5">
         <TrackMap
           variant="storefront"
           riderName={riderName}
@@ -56,7 +56,7 @@ export function OrderTracking({
       </div>
 
       {/* status sheet */}
-      <section className="rounded-[1.75rem] border-2 border-flame/25 bg-cream-deep p-4 text-charcoal">
+      <section className="rounded-2xl border-2 border-flame/25 bg-cream-deep p-4 text-charcoal">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="font-body text-xs font-bold text-flame">Order #{snapshot.orderCode}</p>
@@ -113,7 +113,7 @@ export function OrderTracking({
       </section>
 
       {/* caddy */}
-      <section className="flex items-center gap-3 rounded-[1.75rem] border-2 border-flame/20 bg-cream-deep p-3.5 text-charcoal">
+      <section className="flex items-center gap-3 rounded-2xl border-2 border-flame/20 bg-cream-deep p-3.5 text-charcoal">
         <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-flame text-cream">
           <Bike className="h-6 w-6" aria-hidden="true" />
         </span>
@@ -141,7 +141,7 @@ export function OrderTracking({
       </section>
 
       {/* order summary */}
-      <section className="rounded-[1.75rem] border-2 border-flame/20 bg-cream-deep p-4">
+      <section className="rounded-2xl border-2 border-flame/20 bg-cream-deep p-4">
         <div className="flex items-center gap-3">
           {dishImage && (
             <img src={dishImage} alt="" className="h-12 w-12 shrink-0 rounded-xl object-cover" loading="lazy" decoding="async" />

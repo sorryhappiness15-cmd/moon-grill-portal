@@ -3867,3 +3867,11 @@ img[loading="lazy"]:not([style]) {
   }
   .admin-dash-caddy .panel-lux:hover { transform: none; }
 }
+
+/* Inverted-corner notch used where controls are cut out of a card's top edge. */
+@utility notch-tl {
+  background: radial-gradient(circle at 100% 100%, transparent calc(var(--notch-r, 1rem) - 0.5px), var(--color-cream) var(--notch-r, 1rem));
+}
+@utility notch-tr {
+  background: radial-gradient(circle at 0% 100%, transparent calc(var(--notch-r, 1rem) - 0.5px), var(--color-cream) var(--notch-r, 1rem));
+}

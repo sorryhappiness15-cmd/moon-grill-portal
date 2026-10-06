@@ -88,7 +88,7 @@ export function SecurityCard({ verified }: { verified?: boolean }) {
     "inline-flex items-center justify-center gap-2 rounded-full border-2 border-charcoal/12 bg-white/70 px-5 py-2.5 font-display text-[11px] font-extrabold uppercase tracking-[0.16em] text-charcoal/70 hover:border-flame hover:text-flame disabled:opacity-50";
 
   return (
-    <section className="rounded-[1.75rem] border-2 border-charcoal/10 bg-white/60 p-4 sm:p-5">
+    <section className="rounded-2xl border-2 border-charcoal/10 bg-white/60 p-4 sm:p-5">
       <h2 className="flex items-center gap-2 font-display text-sm font-extrabold uppercase tracking-[0.18em] text-charcoal">
         <ShieldCheck className="h-4 w-4" aria-hidden="true" /> Security
       </h2>
