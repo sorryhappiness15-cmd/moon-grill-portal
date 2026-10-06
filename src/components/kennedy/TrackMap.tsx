@@ -65,6 +65,8 @@ export type TrackMapProps = {
    * follows this coordinate.
    */
   courier?: { lat: number; lng: number } | null;
+  /** "storefront" = light customer look, no stats row underneath. */
+  variant?: "console" | "storefront";
 };
 
 export function TrackMap({
@@ -73,7 +75,9 @@ export function TrackMap({
   targetLabel = "Delivery target",
   rideStarted = true,
   courier,
+  variant = "console",
 }: TrackMapProps) {
+  const store = variant === "storefront";
 
   const ref = useRef<HTMLDivElement | null>(null);
   const [eta, setEta] = useState(18);
@@ -315,14 +319,16 @@ export function TrackMap({
         className={
           full
             ? "caddy-map-shell fixed inset-0 z-[1000] bg-ink p-2 sm:p-4"
-            : "caddy-map-shell relative overflow-hidden rounded-2xl border border-lux/20"
+            : store
+              ? "caddy-map-shell relative overflow-hidden rounded-[1.5rem]"
+              : "caddy-map-shell relative overflow-hidden rounded-2xl border border-lux/20"
         }
       >
         <div
           ref={ref}
-          className={full ? "h-full w-full overflow-hidden rounded-2xl" : "h-72 w-full sm:h-96"}
+          className={full ? "h-full w-full overflow-hidden rounded-2xl" : store ? "h-64 w-full sm:h-96" : "h-72 w-full sm:h-96"}
         />
-        <div className="absolute left-3 top-1/2 z-[500] flex -translate-y-1/2 flex-col gap-1.5 rounded-2xl border border-lux/30 bg-ink/85 p-1.5 shadow-[0_12px_30px_rgba(0,0,0,0.35)] backdrop-blur">
+        <div className={store ? "absolute bottom-3 right-3 z-[500] flex flex-col gap-1 rounded-2xl bg-charcoal/90 p-1 shadow-[0_12px_30px_rgba(0,0,0,0.3)] backdrop-blur" : "absolute left-3 top-1/2 z-[500] flex -translate-y-1/2 flex-col gap-1.5 rounded-2xl border border-lux/30 bg-ink/85 p-1.5 shadow-[0_12px_30px_rgba(0,0,0,0.35)] backdrop-blur"}>
           <MapBtn label="Zoom in" onClick={() => zoom(1)}><Plus className="h-4 w-4" /></MapBtn>
           <MapBtn label="Zoom out" onClick={() => zoom(-1)}><Minus className="h-4 w-4" /></MapBtn>
           <span className="mx-1 h-px bg-lux/20" />
@@ -342,7 +348,7 @@ export function TrackMap({
             Close map
           </button>
         )}
-        <span className="pointer-events-none absolute right-3 top-3 z-[500] rounded-full border border-lux/30 bg-ink/85 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.16em] text-lux">
+        <span hidden={store} className="pointer-events-none absolute right-3 top-3 z-[500] rounded-full border border-lux/30 bg-ink/85 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.16em] text-lux">
           {externallyDriven
             ? courier
               ? "Live · caddy moving"
@@ -354,7 +360,7 @@ export function TrackMap({
         </span>
       </div>
 
-      <div className="grid gap-2 sm:grid-cols-3">
+      <div className={store ? "hidden" : "grid gap-2 sm:grid-cols-3"}>
         <Stat icon={<MapPin className="h-4 w-4" aria-hidden="true" />} label="From">
           {RESTAURANT.name}
         </Stat>
@@ -375,7 +381,7 @@ export function TrackMap({
         </Stat>
       </div>
 
-      {!drop && (
+      {!drop && !store && (
         <p className="text-xs text-slate-dim">
           No customer pin was shared with this order, so the drop marker cannot be placed.
         </p>
