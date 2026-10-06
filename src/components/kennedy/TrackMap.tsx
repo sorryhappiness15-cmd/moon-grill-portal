@@ -328,7 +328,7 @@ export function TrackMap({
           ref={ref}
           className={full ? "h-full w-full overflow-hidden rounded-2xl" : store ? "h-64 w-full sm:h-96" : "h-72 w-full sm:h-96"}
         />
-        <div className={store ? "absolute bottom-3 right-3 z-[500] flex flex-col gap-1 rounded-2xl bg-flame p-1 [&_button]:text-cream shadow-[0_12px_30px_rgba(0,0,0,0.3)] backdrop-blur" : "absolute left-3 top-1/2 z-[500] flex -translate-y-1/2 flex-col gap-1.5 rounded-2xl border border-lux/30 bg-ink/85 p-1.5 shadow-[0_12px_30px_rgba(0,0,0,0.35)] backdrop-blur"}>
+        <div className={store ? "absolute bottom-3 right-3 z-[500] flex flex-col gap-1 rounded-2xl border-2 border-flame/30 bg-cream-deep p-1 [&_button]:text-flame shadow-[0_12px_30px_rgba(0,0,0,0.3)] backdrop-blur" : "absolute left-3 top-1/2 z-[500] flex -translate-y-1/2 flex-col gap-1.5 rounded-2xl border border-lux/30 bg-ink/85 p-1.5 shadow-[0_12px_30px_rgba(0,0,0,0.35)] backdrop-blur"}>
           <MapBtn label="Zoom in" onClick={() => zoom(1)}><Plus className="h-4 w-4" /></MapBtn>
           <MapBtn label="Zoom out" onClick={() => zoom(-1)}><Minus className="h-4 w-4" /></MapBtn>
           <span className="mx-1 h-px bg-lux/20" />
