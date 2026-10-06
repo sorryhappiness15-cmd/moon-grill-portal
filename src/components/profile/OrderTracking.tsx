@@ -44,7 +44,7 @@ export function OrderTracking({
   return (
     <div className="space-y-3">
       {/* map */}
-      <div className="overflow-hidden rounded-[1.75rem] border-2 border-charcoal/10 bg-white p-1.5">
+      <div className="overflow-hidden rounded-[1.75rem] border-2 border-flame/30 bg-cream-deep p-1.5">
         <TrackMap
           variant="storefront"
           riderName={riderName}
@@ -56,17 +56,17 @@ export function OrderTracking({
       </div>
 
       {/* status sheet */}
-      <section className="rounded-[1.75rem] border-2 border-charcoal/10 bg-white p-4">
+      <section className="rounded-[1.75rem] bg-flame p-4 text-cream shadow-[var(--shadow-pill)]">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="font-body text-xs text-charcoal/55">Order #{snapshot.orderCode}</p>
-            <h2 className="mt-0.5 font-display text-lg font-bold leading-snug text-charcoal">{title}</h2>
+            <p className="font-body text-xs text-cream/75">Order #{snapshot.orderCode}</p>
+            <h2 className="mt-0.5 font-display text-lg font-bold leading-snug text-cream">{title}</h2>
             {activeStage?.hint && !snapshot.delivered && (
-              <p className="mt-0.5 font-body text-[13px] text-charcoal/60">{activeStage.hint}</p>
+              <p className="mt-0.5 font-body text-[13px] text-cream/80">{activeStage.hint}</p>
             )}
           </div>
-          <div className="shrink-0 rounded-2xl bg-gold/25 px-3 py-2 text-center">
-            <p className="font-display text-xl font-black leading-none text-charcoal">
+          <div className="shrink-0 rounded-2xl bg-cream px-3 py-2 text-center">
+            <p className="font-display text-xl font-black leading-none text-flame">
               {snapshot.delivered ? <Check className="mx-auto h-5 w-5" aria-hidden="true" /> : snapshot.etaMinutes}
             </p>
             <p className="mt-1 font-body text-[10px] font-bold text-charcoal/60">
@@ -75,15 +75,15 @@ export function OrderTracking({
           </div>
         </div>
 
-        <div className="mt-4 h-2 overflow-hidden rounded-full bg-charcoal/10">
+        <div className="mt-4 h-2 overflow-hidden rounded-full bg-cream/25">
           <motion.div
-            className="h-full rounded-full bg-flame"
+            className="h-full rounded-full bg-gold"
             initial={false}
             animate={{ width: `${pct}%` }}
             transition={{ duration: reduce ? 0 : 0.6, ease: "easeOut" }}
           />
         </div>
-        <div className="mt-2 flex items-center justify-between font-body text-xs text-charcoal/55">
+        <div className="mt-2 flex items-center justify-between font-body text-xs text-cream/80">
           <span>Placed {formatClock(snapshot.placedAt)}</span>
           <span>Arrives by {formatClock(snapshot.etaAt)}</span>
         </div>
@@ -94,35 +94,35 @@ export function OrderTracking({
             <li key={stage.key} className="flex min-w-0 flex-col items-center text-center">
               <span
                 className={`grid h-7 w-7 place-items-center rounded-full border-2 transition-colors ${
-                  stage.done ? "border-flame bg-flame text-cream" : "border-charcoal/15 bg-white text-charcoal/30"
-                } ${stage.active ? "ring-4 ring-gold/40" : ""}`}
+                  stage.done ? "border-cream bg-cream text-flame" : "border-cream/40 bg-transparent text-cream/50"
+                } ${stage.active ? "ring-4 ring-gold/60" : ""}`}
               >
                 {stage.done ? <Check className="h-3.5 w-3.5" aria-hidden="true" /> : <span className="h-1.5 w-1.5 rounded-full bg-current" />}
               </span>
               <span
                 className={`mt-1.5 line-clamp-2 font-body text-[10px] font-bold leading-tight ${
-                  stage.done ? "text-charcoal" : "text-charcoal/40"
+                  stage.done ? "text-cream" : "text-cream/55"
                 }`}
               >
                 {stage.label}
               </span>
-              {stage.at && <span className="font-body text-[10px] text-charcoal/45">{formatClock(stage.at)}</span>}
+              {stage.at && <span className="font-body text-[10px] text-cream/70">{formatClock(stage.at)}</span>}
             </li>
           ))}
         </ol>
       </section>
 
       {/* caddy */}
-      <section className="flex items-center gap-3 rounded-[1.75rem] border-2 border-charcoal/10 bg-charcoal p-3.5 text-cream">
-        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-flame">
+      <section className="flex items-center gap-3 rounded-[1.75rem] border-2 border-flame/20 bg-cream-deep p-3.5 text-charcoal">
+        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-flame text-cream">
           <Bike className="h-6 w-6" aria-hidden="true" />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="font-body text-[11px] text-cream/60">Your caddy</p>
+          <p className="font-body text-[11px] text-charcoal/60">Your caddy</p>
           <p className="truncate font-display text-base font-bold">
             {riderAssigned ? riderName : "Being assigned…"}
           </p>
-          <p className="flex items-center gap-1 font-body text-[11px] text-cream/60">
+          <p className="flex items-center gap-1 font-body text-[11px] text-charcoal/60">
             <RouteIcon className="h-3 w-3" aria-hidden="true" />
             {snapshot.courier
               ? `${snapshot.remainingKm.toFixed(1)} km away${snapshot.speedKmh ? ` · ${snapshot.speedKmh.toFixed(0)} km/h` : ""}`
@@ -133,7 +133,7 @@ export function OrderTracking({
           <a
             href={`tel:${riderPhone}`}
             aria-label={`Call ${riderName}`}
-            className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-cream text-flame transition-transform active:scale-95"
+            className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-flame text-cream transition-transform active:scale-95"
           >
             <Phone className="h-5 w-5" aria-hidden="true" />
           </a>
@@ -141,7 +141,7 @@ export function OrderTracking({
       </section>
 
       {/* order summary */}
-      <section className="rounded-[1.75rem] border-2 border-charcoal/10 bg-white p-4">
+      <section className="rounded-[1.75rem] border-2 border-flame/20 bg-cream-deep p-4">
         <div className="flex items-center gap-3">
           {dishImage && (
             <img src={dishImage} alt="" className="h-12 w-12 shrink-0 rounded-xl object-cover" loading="lazy" decoding="async" />
@@ -152,7 +152,7 @@ export function OrderTracking({
           </div>
           {totalLabel && <p className="shrink-0 font-display text-base font-black text-flame">{totalLabel}</p>}
         </div>
-        <dl className="mt-3 space-y-2 border-t-2 border-dashed border-charcoal/10 pt-3 font-body text-[13px]">
+        <dl className="mt-3 space-y-2 border-t-2 border-dashed border-flame/25 pt-3 font-body text-[13px]">
           <div className="flex items-start gap-2">
             <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-flame" aria-hidden="true" />
             <dt className="sr-only">Deliver to</dt>
