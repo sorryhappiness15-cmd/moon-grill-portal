@@ -23,6 +23,7 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RiderRouteImport } from './routes/rider'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as ZzBannerPreviewRouteImport } from './routes/zz-banner-preview'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminBillingRouteImport } from './routes/admin.billing'
 import { Route as AdminBranchesRouteImport } from './routes/admin.branches'
@@ -111,6 +112,11 @@ const RiderRoute = RiderRouteImport.update({
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZzBannerPreviewRoute = ZzBannerPreviewRouteImport.update({
+  id: '/zz-banner-preview',
+  path: '/zz-banner-preview',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -224,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/rider': typeof RiderRouteWithChildren
   '/signup': typeof SignupRoute
+  '/zz-banner-preview': typeof ZzBannerPreviewRoute
   '/admin/billing': typeof AdminBillingRoute
   '/admin/branches': typeof AdminBranchesRoute
   '/admin/customers': typeof AdminCustomersRoute
@@ -257,6 +264,7 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
+  '/zz-banner-preview': typeof ZzBannerPreviewRoute
   '/admin/billing': typeof AdminBillingRoute
   '/admin/branches': typeof AdminBranchesRoute
   '/admin/customers': typeof AdminCustomersRoute
@@ -293,6 +301,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/rider': typeof RiderRouteWithChildren
   '/signup': typeof SignupRoute
+  '/zz-banner-preview': typeof ZzBannerPreviewRoute
   '/admin/billing': typeof AdminBillingRoute
   '/admin/branches': typeof AdminBranchesRoute
   '/admin/customers': typeof AdminCustomersRoute
@@ -330,6 +339,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/rider'
     | '/signup'
+    | '/zz-banner-preview'
     | '/admin/billing'
     | '/admin/branches'
     | '/admin/customers'
@@ -363,6 +373,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/reset-password'
     | '/signup'
+    | '/zz-banner-preview'
     | '/admin/billing'
     | '/admin/branches'
     | '/admin/customers'
@@ -398,6 +409,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/rider'
     | '/signup'
+    | '/zz-banner-preview'
     | '/admin/billing'
     | '/admin/branches'
     | '/admin/customers'
@@ -434,6 +446,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   RiderRoute: typeof RiderRouteWithChildren
   SignupRoute: typeof SignupRoute
+  ZzBannerPreviewRoute: typeof ZzBannerPreviewRoute
   DishSlugRoute: typeof DishSlugRoute
   TrackCodeRoute: typeof TrackCodeRoute
 }
@@ -536,6 +549,13 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zz-banner-preview': {
+      id: '/zz-banner-preview'
+      path: '/zz-banner-preview'
+      fullPath: '/zz-banner-preview'
+      preLoaderRoute: typeof ZzBannerPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -739,6 +759,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   RiderRoute: RiderRouteWithChildren,
   SignupRoute: SignupRoute,
+  ZzBannerPreviewRoute: ZzBannerPreviewRoute,
   DishSlugRoute: DishSlugRoute,
   TrackCodeRoute: TrackCodeRoute,
 }
