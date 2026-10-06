@@ -301,7 +301,7 @@ function ProfilePage() {
                   data-sfx="pop"
                   aria-current={active ? "page" : undefined}
                   onClick={() => setTab(t.id)}
-                  className={`relative flex min-h-14 flex-col items-center justify-center gap-1 rounded-xl px-1 font-display text-[10px] font-extrabold uppercase tracking-[0.1em] transition-colors sm:min-h-11 sm:flex-row sm:gap-2 sm:text-[11px] ${
+                  className={`relative flex min-h-11 flex-col items-center justify-center gap-0.5 rounded-xl px-1 font-display text-[10px] font-extrabold uppercase tracking-[0.1em] transition-colors sm:min-h-10 sm:flex-row sm:gap-2 sm:text-[11px] ${
                     active ? "text-cream" : "text-charcoal/60 hover:text-flame"
                   }`}
                 >
@@ -313,7 +313,7 @@ function ProfilePage() {
                     />
                   )}
                   <span className="relative">
-                    <t.Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+                    <t.Icon className="h-4 w-4" aria-hidden="true" />
                     {badge > 0 && (
                       <span
                         className={`absolute -right-2.5 -top-1.5 min-w-4 rounded-full px-1 text-center font-body text-[9px] font-bold leading-4 ${
@@ -872,9 +872,9 @@ function QuickAction({
     <button
       type="button"
       onClick={onClick}
-      className="flex min-h-[4.5rem] flex-col items-center justify-center gap-2 rounded-2xl border-2 border-charcoal/10 bg-white/70 px-2 py-3 font-display text-[10px] font-extrabold uppercase tracking-[0.14em] text-charcoal/70 transition-colors hover:border-flame hover:text-flame"
+      className="flex min-h-16 flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-charcoal/10 bg-white/70 px-2 py-3 font-display text-[10px] font-extrabold uppercase tracking-[0.14em] text-charcoal/70 transition-colors hover:border-flame hover:text-flame"
     >
-      <span className="grid h-9 w-9 place-items-center rounded-full bg-flame/10 text-flame">{icon}</span>
+      <span className="grid h-8 w-8 place-items-center rounded-full bg-flame/10 text-flame">{icon}</span>
       {label}
     </button>
   );
