@@ -4,7 +4,8 @@
  */
 import { useRef } from "react";
 import { motion } from "framer-motion";
-import { BadgeCheck, Camera } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { Camera, ChevronLeft, LogOut } from "lucide-react";
 
 import bannerImage from "@/assets/profile-banner.jpg";
 import customerAvatar from "@/assets/customer-avatar.jpg";
@@ -20,6 +21,7 @@ type Props = {
   stats: ProfileStat[];
   onChangeAvatar?: () => void;
   onPickAvatar?: (file: File) => void;
+  onSignOut?: () => void;
 };
 
 export function ProfileBanner({
@@ -27,10 +29,10 @@ export function ProfileBanner({
   email,
   joined,
   avatarUrl,
-  tier = "Flame member",
   stats,
   onChangeAvatar,
   onPickAvatar,
+  onSignOut,
 }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
   const canEditPhoto = !!(onPickAvatar || onChangeAvatar);
@@ -40,10 +42,10 @@ export function ProfileBanner({
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="mt-5 overflow-hidden rounded-[2rem] border-2 border-charcoal/10 bg-charcoal text-cream shadow-[0_26px_60px_rgba(20,14,10,0.28)]"
+      className="overflow-hidden rounded-[2rem] border-2 border-charcoal/10 bg-charcoal text-cream shadow-[0_26px_60px_rgba(20,14,10,0.28)]"
     >
       {/* banner */}
-      <div className="relative h-16 w-full sm:h-40">
+      <div className="relative h-20 w-full sm:h-40">
         <img
           src={bannerImage}
           alt="Charcoal grill embers"
@@ -51,10 +53,24 @@ export function ProfileBanner({
           height={560}
           className="h-full w-full object-cover" loading="lazy" decoding="async" />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/45 to-transparent" />
-        <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-cream/25 bg-charcoal/55 px-3 py-1.5 font-display text-[10px] font-extrabold uppercase tracking-[0.18em] text-cream backdrop-blur sm:right-5 sm:top-5">
-          <BadgeCheck className="h-3.5 w-3.5 text-flame" aria-hidden="true" />
-          {tier}
-        </span>
+        <div className="absolute inset-x-3 top-3 flex items-center justify-between sm:inset-x-5 sm:top-5">
+          <Link
+            to="/"
+            className="flex h-8 items-center gap-1 rounded-full border border-cream/25 bg-charcoal/55 pl-1.5 pr-3 font-display text-[10px] font-extrabold uppercase tracking-[0.16em] text-cream backdrop-blur hover:border-flame hover:text-flame"
+          >
+            <ChevronLeft className="h-4 w-4" aria-hidden="true" /> Menu
+          </Link>
+          {onSignOut && (
+            <button
+              type="button"
+              onClick={onSignOut}
+              aria-label="Sign out"
+              className="grid h-8 w-8 place-items-center rounded-full border border-cream/25 bg-charcoal/55 text-cream backdrop-blur hover:border-flame hover:text-flame"
+            >
+              <LogOut className="h-4 w-4" aria-hidden="true" />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* identity row */}
