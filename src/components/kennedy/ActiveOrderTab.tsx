@@ -61,14 +61,14 @@ export function ActiveOrderTab() {
           to="/profile"
           search={{ tab: "live" }}
           aria-label={`Track order ${order.order_code}: ${label}`}
-          className="active-order-tab flex min-h-20 w-[4.75rem] items-center overflow-hidden rounded-l-2xl border-2 border-r-0 border-cream/70 bg-charcoal text-cream shadow-[0_16px_34px_rgba(20,14,10,0.35)] transition-[width,transform] duration-300 hover:w-[17.5rem] focus-visible:w-[17.5rem] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-gold/55 sm:w-[5.25rem]"
+          className="active-order-tab flex min-h-20 w-[4.75rem] items-center overflow-hidden rounded-l-2xl border-2 border-r-0 border-cream/70 bg-flame text-cream shadow-[0_16px_34px_rgba(20,14,10,0.35)] transition-[width,transform] duration-300 hover:w-[17.5rem] focus-visible:w-[17.5rem] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-gold/55 sm:w-[5.25rem]"
         >
           <span className="relative grid h-full min-w-[4.75rem] place-items-center px-3 py-3 sm:min-w-[5.25rem]">
             <span className="absolute left-2 top-2 flex h-2.5 w-2.5" aria-hidden="true">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-70 motion-reduce:animate-none" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gold" />
             </span>
-            <Bike className="h-6 w-6 text-gold" aria-hidden="true" />
+            <Bike className="h-6 w-6 text-cream" aria-hidden="true" />
             <span className="mt-1 text-center font-display text-[10px] font-extrabold uppercase leading-tight tracking-[0.12em]">
               Order live
             </span>
@@ -76,10 +76,10 @@ export function ActiveOrderTab() {
           </span>
 
           <span className="min-w-0 flex-1 border-l border-cream/15 py-3 pl-4 pr-4 opacity-0 transition-opacity delay-75 duration-200 group-hover:opacity-100 group-focus-within:opacity-100">
-            <span className="block truncate font-display text-xs font-extrabold uppercase text-gold">
+            <span className="block truncate font-display text-xs font-extrabold uppercase text-cream">
               {label}
             </span>
-            <span className="mt-1 flex items-center gap-1.5 whitespace-nowrap font-body text-xs text-cream/70">
+            <span className="mt-1 flex items-center gap-1.5 whitespace-nowrap font-body text-xs text-cream/85">
               <Clock3 className="h-3.5 w-3.5" aria-hidden="true" />
               ETA {order.eta_minutes} min · #{order.order_code}
             </span>
