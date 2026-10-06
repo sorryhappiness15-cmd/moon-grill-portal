@@ -71,7 +71,7 @@ export function ProfileBanner({
               type="button"
               onClick={onSignOut}
               aria-label="Sign out"
-              className="grid h-10 w-10 place-items-center rounded-full bg-charcoal text-cream transition-transform hover:bg-flame active:scale-95"
+              className="grid h-10 w-10 place-items-center rounded-full bg-flame text-cream shadow-[var(--shadow-pill)] transition-transform active:scale-95"
             >
               <LogOut className="h-4 w-4" aria-hidden="true" />
             </button>
