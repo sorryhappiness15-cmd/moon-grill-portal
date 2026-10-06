@@ -475,76 +475,24 @@ function ProfilePage() {
               <section>
                 <button
                   type="button"
-                  onClick={() => setTab("home")}
-                  className="mb-3 flex items-center gap-1.5 font-display text-[11px] font-extrabold uppercase tracking-[0.16em] text-charcoal/60 hover:text-flame"
+                  onClick={() => setTab("orders")}
+                  className="mb-3 flex h-9 items-center gap-1 rounded-full border-2 border-charcoal/12 bg-white/70 pl-2 pr-4 font-body text-xs font-bold text-charcoal/70 hover:border-flame hover:text-flame"
                 >
-                  <ChevronLeft className="h-4 w-4" aria-hidden="true" /> Back
+                  <ChevronLeft className="h-4 w-4" aria-hidden="true" /> Back to orders
                 </button>
                 {current && tracking ? (
-                  <div className="space-y-4">
-                    <div className="grid gap-4 rounded-[1.75rem] border-2 border-charcoal/10 bg-white/70 p-4 sm:p-5 lg:grid-cols-2">
-                      <div>
-                        <div className="flex items-center gap-3">
-                          {current.dish_image && (
-                            <img
-                              src={current.dish_image}
-                              alt={current.dish_name}
-                              className="h-16 w-16 rounded-xl object-cover"
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          )}
-                          <div className="min-w-0">
-                            <p className="truncate font-display text-sm font-extrabold uppercase text-charcoal">
-                              {current.dish_name}
-                            </p>
-                            <p className="font-body text-xs text-charcoal/60">
-                              {current.order_code} · {current.size} · {current.qty} items ·{" "}
-                              {money(current.total)}
-                            </p>
-                          </div>
-                        </div>
-
-                        <p className="mt-3 rounded-2xl bg-charcoal/5 px-4 py-3 font-body text-[12px] text-charcoal/65">
-                          <MapPin className="mr-1 inline h-3.5 w-3.5" aria-hidden="true" />
-                          {[address?.street, address?.area, address?.city].filter(Boolean).join(", ") ||
-                            "Delivery address saved with your order"}
-                        </p>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-2 self-start">
-                        <MiniFact
-                          icon={<CreditCard className="h-3.5 w-3.5" aria-hidden="true" />}
-                          label="Payment"
-                          value={paymentLabel(current.payment)}
-                        />
-                        <MiniFact
-                          icon={<Timer className="h-3.5 w-3.5" aria-hidden="true" />}
-                          label="ETA"
-                          value={tracking.delivered ? "Delivered" : `~${tracking.etaMinutes} min`}
-                        />
-                        <MiniFact
-                          icon={<Bike className="h-3.5 w-3.5" aria-hidden="true" />}
-                          label="Rider"
-                          value={current.rider?.name ?? "Being assigned"}
-                        />
-                        <MiniFact
-                          icon={<Phone className="h-3.5 w-3.5" aria-hidden="true" />}
-                          label="Rider phone"
-                          value={current.rider?.phone ?? "—"}
-                        />
-                      </div>
-                    </div>
-
-                    <OrderTracking
-                      snapshot={tracking}
-                      riderName={current.rider?.name ?? "Rider"}
-                      targetLabel={
-                        [address?.street, address?.area, address?.city].filter(Boolean).join(", ") ||
-                        "Your location"
-                      }
-                    />
-                  </div>
+                  <OrderTracking
+                    snapshot={tracking}
+                    riderName={current.rider?.name ?? "Your caddy"}
+                    riderAssigned={!!current.rider?.name}
+                    riderPhone={current.rider?.phone ?? null}
+                    targetLabel={[address?.street, address?.area, address?.city].filter(Boolean).join(", ") || "Your saved delivery address"}
+                    dishName={current.dish_name}
+                    dishImage={current.dish_image}
+                    itemsLabel={`${current.qty} item${current.qty === 1 ? "" : "s"}${current.size ? ` · ${current.size}` : ""}`}
+                    totalLabel={money(current.total)}
+                    paymentLabel={paymentLabel(current.payment)}
+                  />
                 ) : (
                   <EmptyState
                     title="Nothing to track right now"
