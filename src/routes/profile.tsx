@@ -91,10 +91,10 @@ const stageLabel = (key: OrderStatusKey) =>
 type AddressWithCoords = DbOrder["address"] & { lat?: number; lng?: number };
 
 const TABS = [
-  { id: "home", label: "Home" },
-  { id: "orders", label: "Orders" },
-  { id: "saved", label: "Saved" },
-  { id: "account", label: "Account" },
+  { id: "home", label: "Home", Icon: UserIcon },
+  { id: "orders", label: "Orders", Icon: ReceiptText },
+  { id: "saved", label: "Saved", Icon: Heart },
+  { id: "account", label: "Account", Icon: Wallet },
 ] as const;
 type TabId = (typeof TABS)[number]["id"] | "live";
 
@@ -254,16 +254,17 @@ function ProfilePage() {
         <div className="flex items-center justify-between gap-3">
           <Link
             to="/"
-            className="flex items-center gap-1.5 font-display text-[11px] font-extrabold uppercase tracking-[0.18em] text-charcoal/70 hover:text-flame"
+            className="flex h-10 items-center gap-1.5 rounded-full border-2 border-charcoal/12 bg-white/60 pl-2 pr-4 font-display text-[11px] font-extrabold uppercase tracking-[0.16em] text-charcoal/70 hover:border-flame hover:text-flame"
           >
-            <ChevronLeft className="h-4 w-4" aria-hidden="true" /> Back to menu
+            <ChevronLeft className="h-4 w-4" aria-hidden="true" /> Menu
           </Link>
           <button
             type="button"
             onClick={() => void resetLocal()}
-            className="hidden items-center gap-1.5 rounded-full border-2 border-charcoal/12 px-4 py-2 font-display text-[11px] font-extrabold uppercase tracking-[0.16em] text-charcoal/70 hover:border-flame hover:text-flame sm:flex"
+            aria-label="Sign out"
+            className="flex h-10 items-center gap-1.5 rounded-full border-2 border-charcoal/12 bg-white/60 px-3 font-display text-[11px] font-extrabold uppercase tracking-[0.16em] text-charcoal/70 hover:border-flame hover:text-flame sm:px-4"
           >
-            <LogOut className="h-3.5 w-3.5" aria-hidden="true" /> Sign out
+            <LogOut className="h-4 w-4" aria-hidden="true" /> <span className="hidden sm:inline">Sign out</span>
           </button>
         </div>
 
@@ -285,42 +286,49 @@ function ProfilePage() {
         />
 
         {/* tabs */}
-        <nav className="scrollbar-none sticky top-0 z-30 -mx-4 mt-5 grid grid-cols-4 gap-2 bg-cream/95 px-4 py-2 backdrop-blur sm:static sm:mx-0 sm:flex sm:flex-wrap sm:px-0 sm:backdrop-blur-none">
-          {TABS.map((t) => {
-            const active = tab === t.id || (t.id === "orders" && tab === "live");
-            const badge =
-              t.id === "orders"
-                ? String(orders.length)
-                : t.id === "saved"
-                  ? String(savedCount)
-                  : null;
-            return (
-              <motion.button
-                key={t.id}
-                type="button"
-                data-sfx="pop"
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 420, damping: 22 }}
-                onClick={() => setTab(t.id)}
-                className={`rounded-full border-2 px-3 py-2 font-display text-[10px] font-extrabold uppercase tracking-[0.12em] transition-colors sm:px-4 sm:text-[11px] sm:tracking-[0.16em] ${
-                  active
-                    ? "border-flame bg-flame text-cream shadow-[0_10px_22px_-12px_rgba(210,35,31,0.9)]"
-                    : "border-charcoal/12 bg-white/60 text-charcoal/65 hover:border-flame hover:text-flame"
-                }`}
-              >
-                {t.label}
-                {badge && badge !== "0" && (
-                  <span
-                    className={`ml-1.5 rounded-full px-1.5 py-0.5 font-body text-[10px] ${
-                      active ? "bg-cream/20" : "bg-charcoal/10"
-                    }`}
-                  >
-                    {badge}
+        <nav
+          aria-label="Profile sections"
+          className="sticky top-0 z-30 -mx-4 mt-4 bg-cream/95 px-4 py-2 backdrop-blur sm:static sm:mx-0 sm:mt-5 sm:px-0"
+        >
+          <div className="grid grid-cols-4 gap-1 rounded-2xl border-2 border-charcoal/10 bg-white/70 p-1">
+            {TABS.map((t) => {
+              const active = tab === t.id || (t.id === "orders" && tab === "live");
+              const badge = t.id === "orders" ? orders.length : t.id === "saved" ? savedCount : 0;
+              return (
+                <button
+                  key={t.id}
+                  type="button"
+                  data-sfx="pop"
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => setTab(t.id)}
+                  className={`relative flex min-h-14 flex-col items-center justify-center gap-1 rounded-xl px-1 font-display text-[10px] font-extrabold uppercase tracking-[0.1em] transition-colors sm:min-h-11 sm:flex-row sm:gap-2 sm:text-[11px] ${
+                    active ? "text-cream" : "text-charcoal/60 hover:text-flame"
+                  }`}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="profile-tab-pill"
+                      className="absolute inset-0 rounded-xl bg-flame shadow-[0_10px_22px_-12px_rgba(210,35,31,0.9)]"
+                      transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                    />
+                  )}
+                  <span className="relative">
+                    <t.Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+                    {badge > 0 && (
+                      <span
+                        className={`absolute -right-2.5 -top-1.5 min-w-4 rounded-full px-1 text-center font-body text-[9px] font-bold leading-4 ${
+                          active ? "bg-cream text-flame" : "bg-flame text-cream"
+                        }`}
+                      >
+                        {badge}
+                      </span>
+                    )}
                   </span>
-                )}
-              </motion.button>
-            );
-          })}
+                  <span className="relative">{t.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </nav>
 
         <AnimatePresence mode="wait">
@@ -618,19 +626,22 @@ function ProfilePage() {
             {tab === "account" && (
               <section className="space-y-4">
                 {/* account details */}
-                <div className="overflow-hidden rounded-[1.5rem] border-2 border-charcoal/10">
-                  <div className="grid gap-px bg-charcoal/10 sm:grid-cols-3">
-                    <Detail icon={<UserIcon className="h-4 w-4" aria-hidden="true" />} label="Name">
+                <section className="overflow-hidden rounded-[1.75rem] border-2 border-charcoal/10 bg-white/70">
+                  <h2 className="flex items-center gap-2 px-4 pb-1 pt-4 font-display text-sm font-extrabold uppercase tracking-[0.18em] text-charcoal sm:px-5">
+                    <UserIcon className="h-4 w-4" aria-hidden="true" /> Personal details
+                  </h2>
+                  <dl className="divide-y-2 divide-charcoal/5">
+                    <Detail icon={<UserIcon className="h-4 w-4" aria-hidden="true" />} label="Full name">
                       {profile?.full_name || displayName}
                     </Detail>
                     <Detail icon={<Phone className="h-4 w-4" aria-hidden="true" />} label="Phone">
                       {profile?.phone || "Added with your first order"}
                     </Detail>
-<Detail icon={<Mail className="h-4 w-4" aria-hidden="true" />} label="Email">
+                    <Detail icon={<Mail className="h-4 w-4" aria-hidden="true" />} label="Email">
                       {email || "—"}
                     </Detail>
-                  </div>
-                </div>
+                  </dl>
+                </section>
 
                 {/* addresses */}
                 <section className="rounded-[1.75rem] border-2 border-charcoal/10 bg-white/60 p-4 sm:p-5">
@@ -689,14 +700,14 @@ function ProfilePage() {
                   <h2 className="flex items-center gap-2 font-display text-sm font-extrabold uppercase tracking-[0.18em] text-charcoal">
                     <Wallet className="h-4 w-4" aria-hidden="true" /> Payment methods
                   </h2>
-                  <div className="mt-3 grid gap-3 sm:grid-cols-3">
+                  <div className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3">
                     {paymentSummary.map((p) => (
-                      <div key={p.id} className="rounded-2xl border-2 border-charcoal/10 p-4">
+                      <div key={p.id} className="min-w-0 rounded-2xl border-2 border-charcoal/10 p-3 sm:p-4">
                         <span className="inline-flex items-center gap-1.5 rounded-full bg-charcoal/8 px-3 py-1 font-display text-[10px] font-extrabold uppercase tracking-[0.18em] text-charcoal/70">
                           <CreditCard className="h-3 w-3" aria-hidden="true" />
                           {p.label}
                         </span>
-                        <p className="mt-2 font-display text-xl font-black text-charcoal">{money(p.total)}</p>
+                        <p className="mt-2 truncate font-display text-lg font-black text-charcoal sm:text-xl">{money(p.total)}</p>
                         <p className="mt-1 font-body text-xs text-charcoal/60">
                           {p.count} payment{p.count === 1 ? "" : "s"}
                         </p>
@@ -861,9 +872,9 @@ function QuickAction({
     <button
       type="button"
       onClick={onClick}
-      className="flex flex-col items-center gap-1.5 rounded-2xl border-2 border-charcoal/10 bg-white/70 px-2 py-3 font-display text-[10px] font-extrabold uppercase tracking-[0.14em] text-charcoal/70 transition-colors hover:border-flame hover:text-flame"
+      className="flex min-h-[4.5rem] flex-col items-center justify-center gap-2 rounded-2xl border-2 border-charcoal/10 bg-white/70 px-2 py-3 font-display text-[10px] font-extrabold uppercase tracking-[0.14em] text-charcoal/70 transition-colors hover:border-flame hover:text-flame"
     >
-      <span className="text-flame">{icon}</span>
+      <span className="grid h-9 w-9 place-items-center rounded-full bg-flame/10 text-flame">{icon}</span>
       {label}
     </button>
   );
@@ -914,14 +925,12 @@ function Detail({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-charcoal px-5 py-4">
-      <span className="flex items-center gap-1.5 font-body text-[10px] uppercase tracking-widest text-cream/55">
-        {icon}
-        {label}
-      </span>
-      <span className="mt-1 block truncate font-display text-sm font-extrabold uppercase text-cream">
-        {children}
-      </span>
+    <div className="flex items-center gap-3 px-4 py-3 sm:px-5">
+      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-flame/10 text-flame">{icon}</span>
+      <div className="min-w-0 flex-1">
+        <dt className="font-body text-[10px] uppercase tracking-widest text-charcoal/50">{label}</dt>
+        <dd className="truncate font-body text-sm font-bold text-charcoal">{children}</dd>
+      </div>
     </div>
   );
 }

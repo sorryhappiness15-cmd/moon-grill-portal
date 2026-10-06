@@ -43,7 +43,7 @@ export function ProfileBanner({
       className="mt-5 overflow-hidden rounded-[2rem] border-2 border-charcoal/10 bg-charcoal text-cream shadow-[0_26px_60px_rgba(20,14,10,0.28)]"
     >
       {/* banner */}
-      <div className="relative h-20 w-full sm:h-52">
+      <div className="relative h-24 w-full sm:h-52">
         <img
           src={bannerImage}
           alt="Charcoal grill embers"
@@ -51,24 +51,26 @@ export function ProfileBanner({
           height={560}
           className="h-full w-full object-cover" loading="lazy" decoding="async" />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/45 to-transparent" />
-        <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-cream/25 bg-charcoal/55 px-3 py-1.5 font-display text-[10px] font-extrabold uppercase tracking-[0.18em] text-cream backdrop-blur sm:right-5 sm:top-5">
+        <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-cream/25 bg-charcoal/55 px-3 py-1.5 font-display text-[10px] font-extrabold uppercase tracking-[0.18em] text-cream backdrop-blur sm:right-5 sm:top-5">
           <BadgeCheck className="h-3.5 w-3.5 text-flame" aria-hidden="true" />
           {tier}
         </span>
       </div>
 
       {/* identity row */}
-      <div className="relative -mt-9 flex flex-col gap-4 px-5 pb-5 sm:-mt-14 sm:flex-row sm:items-end sm:justify-between sm:gap-6 sm:px-8 sm:pb-8">
-        <div className="flex items-end gap-3.5">
+      <div className="relative -mt-12 px-4 pb-4 sm:-mt-14 sm:px-8 sm:pb-8">
+        <div className="flex flex-col items-center text-center sm:flex-row sm:items-end sm:gap-5 sm:text-left">
           <div className="relative shrink-0">
-            <span className="block rounded-[1.4rem] bg-charcoal p-1.5 shadow-[0_18px_40px_rgba(20,14,10,0.45)]">
+            <span className="block rounded-[1.5rem] bg-charcoal p-1.5 shadow-[0_18px_40px_rgba(20,14,10,0.45)]">
               <img
                 src={avatarUrl || customerAvatar}
                 alt={name}
                 width={816}
                 height={816}
                 loading="lazy"
-                className="h-14 w-14 rounded-[1.1rem] border-2 border-flame object-cover sm:h-28 sm:w-28 sm:rounded-[1.3rem]" decoding="async" />
+                decoding="async"
+                className="h-20 w-20 rounded-[1.2rem] border-2 border-flame object-cover sm:h-28 sm:w-28 sm:rounded-[1.3rem]"
+              />
             </span>
             {canEditPhoto && (
               <>
@@ -94,30 +96,24 @@ export function ProfileBanner({
               </>
             )}
           </div>
-          <div className="min-w-0 pb-1">
-            <h1 className="truncate font-display text-xl font-extrabold uppercase sm:text-3xl">
+          <div className="mt-3 w-full min-w-0 sm:mt-0 sm:flex-1 sm:pb-1">
+            <h1 className="truncate font-display text-2xl font-extrabold uppercase leading-tight sm:text-3xl">
               {name}
             </h1>
-            <p className="hidden truncate font-body text-sm text-cream/70 sm:block">{email}</p>
+            {email && <p className="truncate font-body text-[13px] text-cream/70 sm:text-sm">{email}</p>}
             {joined && (
-              <p className="font-body text-[11px] text-cream/45">
-                Member since {new Date(joined).toLocaleDateString("en-GB")}
+              <p className="mt-0.5 font-body text-[11px] text-cream/45">
+                Member since {new Date(joined).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}
               </p>
             )}
           </div>
         </div>
 
-        <dl className="grid grid-cols-1 gap-2 text-center sm:grid-cols-3 sm:gap-3">
-          {stats.map((stat, i) => (
-            <div
-              key={stat.label}
-              className={`rounded-2xl border border-cream/10 bg-cream/10 px-3 py-2 backdrop-blur sm:px-4 sm:py-3 ${i > 0 ? "hidden sm:block" : ""}`}
-            >
-  
-              <dt className="font-body text-[10px] uppercase tracking-widest text-cream/60">
-                {stat.label}
-              </dt>
-              <dd className="font-display text-base font-extrabold">{stat.value}</dd>
+        <dl className="mt-4 grid grid-cols-3 divide-x divide-cream/10 overflow-hidden rounded-2xl border border-cream/10 bg-cream/[0.07] text-center sm:mt-6">
+          {stats.map((stat) => (
+            <div key={stat.label} className="flex min-w-0 flex-col-reverse px-2 py-2.5 sm:py-3">
+              <dt className="mt-0.5 font-body text-[10px] uppercase tracking-widest text-cream/55">{stat.label}</dt>
+              <dd className="truncate font-display text-base font-extrabold leading-tight sm:text-lg">{stat.value}</dd>
             </div>
           ))}
         </dl>
